@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Selection sort sample</title>
+  </head>
+  <body>
+      <script type="text/javascript">
+
+        // array of interest.
+        var arr = [4,2,6,5,9,7,3,8,1];
+
+        // Algorithm for Selection sort:
+        //-----------------------------------------------------
+        // 1. Assume that a[0] is the element of interest.
+        // 2. From a[1] to a[a.length-1], find the minimum element.
+        // 3. Compare this min element with a[0]
+        // 4. If min element < a[0], then swap each other.
+        // 5. Else, a[0] is the least element.
+        // 6. Move the index to a[1]. Now a[0] is the least element & is sorted.
+        // 7. From a[2] to a[a.length-1], find the minimum element.
+        // 8. Always, our element of reference is a[i] & we need to perform a search to find min value from a[i+1] to a[a.length-1]
+
+
+        function selectionsort(arr){
+            // proceed only if array has elements
+            if(arr.length > 0) {
+              // proceed for the array length (iterate forwards)
+              for(var i=0; i< arr.length; i++){
+                // keep a variable for the index. We are more interested in the index than the value
+                var minIndex;
+                // reverse iterate from arr.length-1 to j > i (where i=currentIndex of outer loop)
+                for(var j= arr.length-1; j>i; j--){
+                  //reverse wise first, then set that as the minIndex
+                  if(j === arr.length-1)
+                    minIndex = arr.length-1;
+
+                  // else, check if currentIndex arr[j] < arr[minIndex]
+                  // check if current element is lesser than the element held by the minIndex
+                  // if so, set that element as the minIndex
+                  if(arr[j] < arr[minIndex])
+                    minIndex = j;
+                }
+                //minIndex is now got from linear search. compare the value held by minIndex with
+                //current element pointed by outer loop
+                if(arr[minIndex] < arr[i]){
+                  var temp = arr[minIndex];
+                  arr[minIndex] = arr[i];
+                  arr[i] = temp;
+                }
+              }
+              return arr;
+            }
+        }
+        console.log('Array before sort... '+arr);
+        console.log('Sorting by selectionsort...');
+        console.log('after sort.. '+selectionsort(arr));
+
+      </script>
+  </body>
+</html>
