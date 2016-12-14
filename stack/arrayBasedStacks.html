@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title of the document</title>
+    </head>
+    <body>
+          <script type="text/javascript">
+          /***
+          ** A stack is a LAST IN FIRST OUT data structure.
+          * Like the pile of plates that you would hold on your hand
+          * By a LIFO we mean that, element at the top only will be popped
+          * By a LIFO we mean that, element will always be inserted only at the top
+          * The Starting of the array is the area of interest for us
+          * Insertions & deletions in the stack are always focussed at the starting end
+          * This starting end is the TOP of the stack
+          **/
+
+          // a constructor function that creates a new Stack class
+          function Stack(size){
+              if(size){
+                  this.size = size;
+                  this.datastore = [];
+              } else {
+                  console.log('Tried instantiating a stack representation without a size!');
+                  throw new Error('no size defined')
+              }
+          }
+
+          // utility methods that define a stack & its various operations
+          Stack.prototype = {
+              // used to pop the top most element in the stack
+              // Don't try to pop an empty stack
+              // Detect and log a stack underflow
+              pop: function (){
+                  // if its not empty, then pop the stack
+                  if (!this.isEmpty()) {
+                      this.datastore.shift();
+                  } else{
+                      throw new Error("Stack underflow !! You are trying to pop an empty stack. Unable to pop");
+                  }
+              },
+              // used to get the value of the top most element in the stack
+              peek: function(){
+                  // if the stack is not empty, then get the 1st element of the stack
+                  if (!this.isEmpty()) {
+                      return this.datastore[0];
+                  } else {
+                    throw new Error("Stack is empty !!. Nothing to peek!");
+                  }
+              },
+              // used to display all the elements in the stack as a concatenated string
+              valueOf: function() {
+                  // if the stack is not empty, then get the valueOf the stack
+                  if(!this.isEmpty()) {
+                      return this.datastore.join()
+                  } else {
+                      throw new Error("Stack is empty !!. Nothing to display!");
+                  }
+              },
+              // clears the stack
+              empty: function(){
+                // clear the stack only if its not empty
+                if(!this.isEmpty()) {
+                    delete this.datastore;
+                    this.datastore = new Array(this.size);
+                }
+              },
+              // inserts a new value at the top of the stack.
+              // Don't push an element if the stack is full
+              // Detect and log a stack overflow
+              push: function(element){
+                // if the stack is not full, then push an element into it
+                if(!this.isFull()){
+                    this.datastore.unshift(element);
+                } else {
+                    throw new Error("Stack overflow !! You are trying to push a full stack. Unable to push!!");
+                }
+              },
+              // checks if a stack has this value & returns TRUE | FALSE
+              // a ret value of -1 indicates that the element is not present
+              contains: function(element){
+                  return this.datastore.indexOf(element);
+              },
+              // used to detect if the stack is full, in case a size is provided
+              isFull: function(){
+                  return (this.datastore.length === this.size) ? true : false;
+              },
+              isEmpty: function(){
+                  return (this.datastore.length === 0) ? true : false;
+              }
+          }
+
+          try{
+              var studentStack = new Stack();
+          }catch(e){
+              console.log(e.message);
+          }
+
+          var examStack = new Stack(7);
+          try{
+              examStack.peek();
+          }catch(e){
+              console.log(e.message);
+          }
+          console.log('is Full ? '+ examStack.isFull());
+          console.log('is Empty ? '+ examStack.isEmpty());
+          examStack.push("CSS 101");
+          console.log('peeking top value ... ' + examStack.peek());
+          console.log('popping a value.. ');
+          examStack.pop();
+          try{
+              console.log('popping one more value.. ');
+              examStack.pop();
+          }catch(e){
+              console.log(e.message);
+          }
+          examStack.push("JS 101");
+          examStack.push("HTML5 101");
+          examStack.push("LESS 101");
+          examStack.push("NODE 101");
+          examStack.push("LASSO 101");
+          examStack.push("MARKO 101");
+          examStack.push("AJAX 101");
+
+          console.log(examStack.valueOf());
+
+          console.log("Pushing more elements into the stack...");
+          try{
+              examStack.push("RegExp 101");
+          }catch(e){
+              console.log(e.message);
+          }
+          console.log(examStack.valueOf());
+          </script>
+    </body>
+</html>
